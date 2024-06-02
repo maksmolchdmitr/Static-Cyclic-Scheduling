@@ -45,7 +45,7 @@ typedef struct IEcoTaskScheduler1VTbl {
 
     /* IEcoTaskScheduler1 */
     int16_t (ECOCALLMETHOD *Init)(/*in*/ IEcoTaskScheduler1Ptr_t me, /*in*/ IEcoInterfaceBus1Ptr_t pIBus);
-    int16_t (ECOCALLMETHOD *NewTask)(/*in*/ IEcoTaskScheduler1Ptr_t me, /*in*/ voidptr_t address, /*in*/ voidptr_t data, /*in*/ uint32_t stackSize, /* out */ IEcoTask1** ppITask);
+    int16_t (ECOCALLMETHOD *NewTask)(/*in*/ IEcoTaskScheduler1Ptr_t me, /*in*/ voidptr_t func, /* out */ IEcoTask1** ppITask);
     int16_t (ECOCALLMETHOD *Start)(/*in*/ IEcoTaskScheduler1Ptr_t me);
 
 } IEcoTaskScheduler1VTbl, *IEcoTaskScheduler1VTblPtr;

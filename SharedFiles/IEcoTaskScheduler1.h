@@ -45,15 +45,8 @@ typedef struct IEcoTaskScheduler1VTbl {
 
     /* IEcoTaskScheduler1 */
     int16_t (ECOCALLMETHOD *Init)(/*in*/ IEcoTaskScheduler1Ptr_t me, /*in*/ IEcoInterfaceBus1Ptr_t pIBus);
-    int16_t (ECOCALLMETHOD *InitWith)(/*in*/ IEcoTaskScheduler1Ptr_t me, /*in*/ IEcoInterfaceBus1Ptr_t pIBus, /*in*/ voidptr_t heapStartAddress, /*in*/ uint32_t size);
     int16_t (ECOCALLMETHOD *NewTask)(/*in*/ IEcoTaskScheduler1Ptr_t me, /*in*/ voidptr_t address, /*in*/ voidptr_t data, /*in*/ uint32_t stackSize, /* out */ IEcoTask1** ppITask);
-    int16_t (ECOCALLMETHOD *DeleteTask)(/*in*/ IEcoTaskScheduler1Ptr_t me, /*in*/ uint16_t taskId);
-    int16_t (ECOCALLMETHOD *SuspendTask)(/*in*/ IEcoTaskScheduler1Ptr_t me, /*in*/ uint16_t taskId);
-    int16_t (ECOCALLMETHOD *ResumeTask)(/*in*/ IEcoTaskScheduler1Ptr_t me, /*in*/ uint16_t taskId);
-    int16_t (ECOCALLMETHOD *RegisterInterrupt)(/*in*/ IEcoTaskScheduler1Ptr_t me, /*in*/ uint16_t number, /*in*/ voidptr_t handlerAddress, /*in*/ int32_t flag);
-    int16_t (ECOCALLMETHOD *UnRegisterInterrupt)(/*in*/ IEcoTaskScheduler1Ptr_t me, /*in*/ uint16_t number);
     int16_t (ECOCALLMETHOD *Start)(/*in*/ IEcoTaskScheduler1Ptr_t me);
-    int16_t (ECOCALLMETHOD *Stop)(/*in*/ IEcoTaskScheduler1Ptr_t me);
 
 } IEcoTaskScheduler1VTbl, *IEcoTaskScheduler1VTblPtr;
 

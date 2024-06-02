@@ -28,8 +28,6 @@
 #define MAX_TASKS 10
 
 CEcoTask1Lab_C761620F tasks[MAX_TASKS];
-int task_count = 0;
-int cur_time = 0;
 
 /* Выделяем память под один экземпляр */
 CEcoTaskScheduler1Lab_C761620F g_xCEcoTaskScheduler1Lab_C761620F = {0};
@@ -140,9 +138,6 @@ int16_t ECOCALLMETHOD CEcoTaskScheduler1Lab_C761620F_Init(/*in*/IEcoTaskSchedule
         return -1;
     }
 
-    task_count = 0;
-    cur_time = 0;
-
     return 0;
 }
 
@@ -157,20 +152,26 @@ int16_t ECOCALLMETHOD CEcoTaskScheduler1Lab_C761620F_Init(/*in*/IEcoTaskSchedule
  * </описание>
  *
  */
-int16_t ECOCALLMETHOD CEcoTaskScheduler1Lab_C761620F_NewTask(/*in*/ IEcoTaskScheduler1Ptr_t me, /*in*/ voidptr_t func, /* out */ IEcoTask1** ppITask) {
+int16_t ECOCALLMETHOD CEcoTaskScheduler1Lab_C761620F_NewTask(/*in*/ IEcoTaskScheduler1Ptr_t me, /*in*/ voidptr_t func, int period, int offset, /* out */ IEcoTask1** ppITask) {
     /*CEcoTaskScheduler1Lab_C761620F* pCMe = (CEcoTaskScheduler1Lab_C761620F*)me;*/
+    int i = 0;
 
     /* Проверка указателей */
     if (me == 0 ) {
         return -1;
     }
 
-    if (task_count >= MAX_TASKS) {
+    while(i < MAX_TASKS && tasks[i].pfunc!=NULL){
+        i++;
+    }
+
+    if (i >= MAX_TASKS) {
         printf("Maximum number of tasks reached\n");
         return -1;
     }
-    tasks[task_count].pfunc = func;
-    task_count++;
+    tasks[i].pfunc = func;
+    tasks[i].period = period;
+    tasks[i].offset = offset;
 
     return -1;
 }
@@ -188,20 +189,41 @@ int16_t ECOCALLMETHOD CEcoTaskScheduler1Lab_C761620F_NewTask(/*in*/ IEcoTaskSche
  */
 int16_t ECOCALLMETHOD CEcoTaskScheduler1Lab_C761620F_Start(/*in*/ IEcoTaskScheduler1Ptr_t me) {
     CEcoTaskScheduler1Lab_C761620F* pCMe = (CEcoTaskScheduler1Lab_C761620F*)me;
+    int cycle_time = 0;
+    int i = 0;
+    int time = 0;
 
     /* Проверка указателей */
     if (me == 0 ) {
         return -1;
     }
 
+    // вычисление длительности цикла
+    cycle_time = 0;
+    for (i = 0; i < MAX_TASKS; i++) {
+        cycle_time = max(cycle_time, tasks[i].period+1);
+    }
+
+    // выполнение задач в соответствии с фиксированным порядком и интервалом времени
+    time = 0;
     while (1) {
-        for (int i = 0; i < task_count; i++) {
-           tasks[i].pfunc();
+        for (i = 0; i < MAX_TASKS; i++) {
+            if (tasks[i].pfunc!=NULL && time == tasks[i].offset) {
+                tasks[i].pfunc();
+            }
         }
-        cur_time++;
+        time = (time + 1) % cycle_time;
     }
 
     return 0;
+}
+
+int max(int a, int b){
+    if(a>b){
+        return a;
+    }else{
+        return b;
+    }
 }
 
 /*

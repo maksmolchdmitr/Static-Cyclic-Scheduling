@@ -34,14 +34,17 @@
 
 void func_1(){
     printf("Hello from func 1!\n");
+    sleep(1);
 }
 
 void func_2(){
     printf("Hello from func 2!\n");
+    sleep(1);
 }
 
 void func_3(){
     printf("Hello from func 3!\n");
+    sleep(1);
 }
 
 /*
@@ -134,9 +137,9 @@ int16_t EcoMain(IEcoUnknown *pIUnk) {
     }
 
     pIEcoTaskScheduler->pVTbl->Init(pIEcoTaskScheduler, pIBus);
-    pIEcoTaskScheduler->pVTbl->NewTask(pIEcoTaskScheduler, func_1, 0);
-    pIEcoTaskScheduler->pVTbl->NewTask(pIEcoTaskScheduler, func_2, 0);
-    pIEcoTaskScheduler->pVTbl->NewTask(pIEcoTaskScheduler, func_3, 0);
+    pIEcoTaskScheduler->pVTbl->NewTask(pIEcoTaskScheduler, func_1, 43, 43, 0);
+    pIEcoTaskScheduler->pVTbl->NewTask(pIEcoTaskScheduler, func_2, 224, 63, 0);
+    pIEcoTaskScheduler->pVTbl->NewTask(pIEcoTaskScheduler, func_3, 354, 13, 0);
     pIEcoTaskScheduler->pVTbl->Start(pIEcoTaskScheduler);
 
     Release:

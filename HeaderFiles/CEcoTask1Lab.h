@@ -34,6 +34,10 @@ typedef struct CEcoTask1Lab_C761620F {
     /* Данные экземпляра */
     void (*pfunc) (void);
 
+    int period;
+
+    int offset;
+
 } CEcoTask1Lab_C761620F, *CEcoTask1Lab_C761620F_Ptr;
 
 #endif /* __C_ECO_TASK_1_LAB_H__ */

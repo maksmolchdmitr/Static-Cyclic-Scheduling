@@ -22,8 +22,6 @@
 #include "IEcoInterfaceBus1MemExt.h"
 #include "CEcoTaskScheduler1Lab.h"
 #include "CEcoTask1Lab.h"
-#include <stdio.h>
-#include <stdlib.h>
 
 #define MAX_TASKS 10
 

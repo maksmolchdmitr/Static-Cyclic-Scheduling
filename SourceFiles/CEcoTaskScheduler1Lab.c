@@ -22,6 +22,14 @@
 #include "IEcoInterfaceBus1MemExt.h"
 #include "CEcoTaskScheduler1Lab.h"
 #include "CEcoTask1Lab.h"
+#include <stdio.h>
+#include <stdlib.h>
+
+#define MAX_TASKS 10
+
+CEcoTask1Lab_C761620F tasks[MAX_TASKS];
+int task_count = 0;
+int cur_time = 0;
 
 /* Выделяем память под один экземпляр */
 CEcoTaskScheduler1Lab_C761620F g_xCEcoTaskScheduler1Lab_C761620F = {0};
@@ -132,6 +140,9 @@ int16_t ECOCALLMETHOD CEcoTaskScheduler1Lab_C761620F_Init(/*in*/IEcoTaskSchedule
         return -1;
     }
 
+    task_count = 0;
+    cur_time = 0;
+
     return 0;
 }
 
@@ -154,6 +165,13 @@ int16_t ECOCALLMETHOD CEcoTaskScheduler1Lab_C761620F_NewTask(/*in*/ IEcoTaskSche
         return -1;
     }
 
+    if (task_count >= MAX_TASKS) {
+        printf("Maximum number of tasks reached\n");
+        return -1;
+    }
+    tasks[task_count].pfunc = func;
+    task_count++;
+
     return -1;
 }
 
@@ -174,6 +192,13 @@ int16_t ECOCALLMETHOD CEcoTaskScheduler1Lab_C761620F_Start(/*in*/ IEcoTaskSchedu
     /* Проверка указателей */
     if (me == 0 ) {
         return -1;
+    }
+
+    while (1) {
+        for (int i = 0; i < task_count; i++) {
+           tasks[i].pfunc();
+        }
+        cur_time++;
     }
 
     return 0;

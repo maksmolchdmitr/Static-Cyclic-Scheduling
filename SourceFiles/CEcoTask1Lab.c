@@ -131,21 +131,23 @@ int16_t ECOCALLMETHOD CEcoTask1Lab_C761620F_Delay(/*in*/ IEcoTask1Ptr_t me, /*in
 /*
  *
  * <сводка>
- *   Функция Yield
+ *   Функция Run
  * </сводка>
  *
  * <описание>
- *   Функция Sleep для интерфейса IEcoTask1Lab
+ *   Запустить задачу
  * </описание>
  *
  */
-int16_t ECOCALLMETHOD CEcoTask1Lab_C761620F_Yield(/*in*/ IEcoTask1Ptr_t me) {
-    /*CEcoTask1Lab_C761620F* pCMe = (CEcoTask1Lab_C761620F*)me;*/
+int16_t ECOCALLMETHOD CEcoTask1Lab_C761620F_Run(/*in*/ IEcoTask1Ptr_t me) {
+    CEcoTask1Lab_C761620F* pCMe = (CEcoTask1Lab_C761620F*)me;
 
     /* Проверка указателя */
     if (me == 0 ) {
         return -1;
     }
+
+    pCMe->pfunc();
 
     return 0;
 }
@@ -156,7 +158,6 @@ IEcoTask1VTbl g_x81A466F4C27540B1B33D0661E5470F1BVTbl_C761620F = {
     CEcoTask1Lab_C761620F_QueryInterface,
     CEcoTask1Lab_C761620F_AddRef,
     CEcoTask1Lab_C761620F_Release,
-    CEcoTask1Lab_C761620F_Delay,
-    CEcoTask1Lab_C761620F_Yield
+    CEcoTask1Lab_C761620F_Run
 };
 

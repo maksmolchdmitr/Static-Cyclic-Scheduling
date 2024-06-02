@@ -39,22 +39,13 @@ typedef struct IEcoTask1VTbl {
     /* IEcoTask1 */
 
     /* <метод>
-     *   Delay
+     *   Run
      * </метод>
      * <описание>
-     *   Блокировка задачи на заданный интервал времени
+     *   Запустить задачу
      * </описание>
      */
-    int16_t (ECOCALLMETHOD *Delay)(/*in*/ IEcoTask1Ptr_t me, /*in*/ double_t milliseconds);
-
-    /* <метод>
-     *   Yield
-     * </метод>
-     * <описание>
-     *   Передать выполнение другой задачи
-     * </описание>
-     */
-    int16_t (ECOCALLMETHOD *Yield)(/*in*/ IEcoTask1Ptr_t me);
+    int16_t (ECOCALLMETHOD *Run)(/*in*/ IEcoTask1Ptr_t me);
 
 } IEcoTask1VTbl, *IEcoTask1VTblPtr;
 

@@ -31,9 +31,6 @@ typedef struct CEcoTask1Lab_C761620F {
     /* Счетчик ссылок */
     uint32_t m_cRef;
 
-    /* Стэк */
-    volatile byte_t* m_sp;
-
     /* Данные экземпляра */
     void (*pfunc) (void);
 
